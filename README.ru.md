@@ -55,6 +55,9 @@ translations['en'] = {<blockquote>
 Также игнорируются строки вида
 <pre><code>
 import 'some-package-name'; 
+import * from 'some-package-name'; 
+import {class,...} from 'some-package-name'; 
+export const <ident> = {}; // with empty values
 </code></pre>
 а также игнорируются inline коментарии в /* ... */ и строчные, типа //... в любом месте исходного кода.
 Значения строк принимаются в любых кавычках одиночной ', двойной " или обратной ` как по стандарту javascript.
