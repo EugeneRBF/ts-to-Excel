@@ -23,9 +23,8 @@ Public Enum TokenType
     oProperty
     oPropertyList
     tImport
-    tExport
-    tConst
     tIdentifier
+    tIdentList
     tAssign
     tColon
     tComma
@@ -80,10 +79,8 @@ Public Function toString() As String
         toString = "PropertyList"
     Case tImport
         toString = "import"
-    Case tExport
-        toString = "export"
-    Case tConst
-        toString = "const"
+    'Case tConst
+    '    toString = "const"
     Case tIdentifier
         toString = "Identifier"
     Case tAssign
@@ -148,10 +145,10 @@ Public Static Function toToken(lex As Lexem) As Token
         tok.setType = tCurlyEnd
     Case EOF
         tok.setType = EOP
-    Case kwConst
-        tok.setType = tConst
-    Case kwExport
-        tok.setType = tExport
+    'Case kwConst
+    '    tok.setType = tConst
+    'Case kwExport
+    '    tok.setType = tExport
     Case kwImport
         tok.setType = tImport
     End Select

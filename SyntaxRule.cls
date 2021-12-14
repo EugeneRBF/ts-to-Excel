@@ -89,12 +89,10 @@ Private Function tokenName(tgt As TokenType) As String
         tokenName = "PropertyList"
     Case tImport
         tokenName = "import"
-    Case tExport
-        tokenName = "export"
-    Case tConst
-        tokenName = "const"
     Case tIdentifier
         tokenName = "Identifier"
+    Case tIdentList
+        tokenName = "IdentList"
     Case tAssign
         tokenName = ":="
     Case tColon

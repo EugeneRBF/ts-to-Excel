@@ -62,17 +62,20 @@ Private Sub prepareRules()
     Set rules = New Collection
     
     rules.add Item:=rule.create(FinishAll, Programm).add(StatementList).add(EOP)
-    rules.add Item:=rule.create(Copy, Statement).add(Statement).add(tSemiColon)
-    rules.add Item:=rule.create(None, Statement).add(tIdentifier).add(tAssign).add(vString)
-    rules.add Item:=rule.create(None, Statement).add(tImport).add(vString)
-    rules.add Item:=rule.create(None, Statement).add(tImport).add(tCurlyStart).add(tIdentifier).add(tCurlyEnd).add(tIdentifier).add(vString)
-    rules.add Item:=rule.create(None, Statement).add(tImport).add(tIdentifier).add(tIdentifier).add(vString)
-    rules.add Item:=rule.create(Merge, StatementList).add(StatementList).add(Statement)
-    rules.add Item:=rule.create(Copy, StatementList).add(StatementList).add(tSemiColon)
-    rules.add Item:=rule.create(Copy, StatementList).add(Statement)
-    rules.add Item:=rule.create(Finish, Statement).add(tIdentifier).add(tAssign).add(vObject)
-    rules.add Item:=rule.create(GetLocale, tIdentifier).add(tIdentifier).add(tBrackedStart).add(vString).add(tBrackedEnd)
-    rules.add Item:=rule.create(None, tIdentifier).add(tIdentifier).add(tConst).add(tIdentifier)
+    rules.add Item:=rule.create(Copy, Statement).add(Statement).add(tSemiColon)             ' stmt ;
+    rules.add Item:=rule.create(None, Statement).add(tIdentifier).add(tAssign).add(vString) ' ident = 'string'
+    rules.add Item:=rule.create(None, Statement).add(tImport).add(vString)                  ' import 'string'
+    rules.add Item:=rule.create(None, Statement).add(tImport).add(tCurlyStart).add(tIdentifier).add(tCurlyEnd).add(tIdentifier).add(vString) ' import { class } from 'string'
+    rules.add Item:=rule.create(None, Statement).add(tImport).add(tCurlyStart).add(tIdentList).add(tCurlyEnd).add(tIdentifier).add(vString) ' import { class } from 'string'
+    rules.add Item:=rule.create(None, Statement).add(tImport).add(tIdentifier).add(vString) ' import * from 'string'
+    rules.add Item:=rule.create(None, tIdentList).add(tIdentifier).add(tComma).add(tIdentifier)     ' identList := <ident>, <ident> ;
+    rules.add Item:=rule.create(None, tIdentList).add(tIdentList).add(tComma).add(tIdentifier)     ' identList := <ident>, <ident> ;
+    rules.add Item:=rule.create(Merge, StatementList).add(StatementList).add(Statement)     ' stmtList := <stmtList> <stmt>
+    rules.add Item:=rule.create(Copy, StatementList).add(StatementList).add(tSemiColon)     ' stmtList := <stmtList> ;
+    rules.add Item:=rule.create(Copy, StatementList).add(Statement)                         ' stmtList := <stmt>
+    rules.add Item:=rule.create(Finish, Statement).add(tIdentifier).add(tAssign).add(vObject)   ' stmt := <ident> = <object>
+    rules.add Item:=rule.create(GetLocale, tIdentifier).add(tIdentifier).add(tBrackedStart).add(vString).add(tBrackedEnd)   ' ident = <ident> [ 'string' ]
+    rules.add Item:=rule.create(Copy2, tIdentifier).add(tIdentifier).add(tIdentifier)        ' ident := export const <ident>
     rules.add Item:=rule.create(Copy2, vObject).add(tCurlyStart).add(oPropertyList).add(tCurlyEnd)
     rules.add Item:=rule.create(None, vObject).add(tCurlyStart).add(tCurlyEnd)
     rules.add Item:=rule.create(ReduceString, oProperty).add(tIdentifier).add(tColon).add(vString)
@@ -135,7 +138,7 @@ Private Sub tryReduce(ByRef stack As Collection)
                         stack.Remove iy
                     Next iy
                     stack.add newTok
-                    Debug.Print "Stack reduced to " & rule.toString
+                    'Debug.Print "Stack reduced to " & rule.toString
                 End If
                 If matched Then
                     Select Case rule.canDo

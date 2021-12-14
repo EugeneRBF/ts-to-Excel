@@ -32,8 +32,6 @@ Public Enum LexemType
     CurlyStart
     CurlyEnd
     EOF
-    kwConst
-    kwExport
     kwImport
 End Enum
 
@@ -83,10 +81,6 @@ Public Function toName()
             toName = "CurlyEnd"
         Case EOF:
             toName = "EOF"
-        Case kwConst
-            toName = "KW Const"
-        Case kwExport:
-            toName = "KW Export"
         Case kwImport:
             toName = "KW Import"
         Case Identifier:
@@ -102,7 +96,6 @@ Public Sub init(source As String)
     tsString = source
     tsIndex = 1
     
-    Keywords.add "const"
     Keywords.add "import"
     
     separators.add 1, " "
@@ -138,8 +131,8 @@ Public Function parse() As Lexem
     Set parse = Me
     If typ = Keyword Then
         Select Case val
-        Case "const":
-            typ = kwConst
+        'Case "const":
+        '    typ = kwConst
         'Case "export":
         '    typ = kwExport
         Case "import":
