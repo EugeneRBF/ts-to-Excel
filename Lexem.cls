@@ -90,7 +90,7 @@ Public Function toName()
     End Select
 End Function
 
-Public Sub init(source As String)
+Public Sub init(ByRef source As String)
     Dim ix As Integer
     
     tsString = source
