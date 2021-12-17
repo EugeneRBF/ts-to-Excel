@@ -34,6 +34,6 @@ translations['en'] = {<blockquote>
 </code></pre>
 
 Its have two implementation via Excel plugin and VB standalone program.
-Second one because parsing via Excel with files about 1900 lines got "Err 28 Out of stack" error
+Second one because parsing via Excel with files about 1900 lines give "Err 28 Out of stack" error
 on both x32 and x64 version.<br>
 When same code converted from VBA to VB works perfect w/out problems.
